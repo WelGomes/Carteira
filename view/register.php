@@ -17,12 +17,12 @@
         <form action="/register" method="post">
             <div class="form-content">
                 <div class="input-names">
-                    <input type="text" placeholder="Name" name="name" id="name">
-                    <input type="text" placeholder="Last Name" name="lastName" id="lastName">
+                    <input type="text" placeholder="Name" name="name" id="name" required>
+                    <input type="text" placeholder="Last Name" name="lastName" id="lastName" required>
                 </div>
                 <div class="form-content">
-                    <input type="email" placeholder="E-mail" name="email" id="email">
-                    <input type="password" placeholder="Password" name="password" id="password">
+                    <input type="email" placeholder="E-mail" name="email" id="email" required>
+                    <input type="password" placeholder="Password" name="password" id="password" required>
                 </div>
                 <?php if (!empty($error)): ?>
                     <p id="error"><?= $error ?></p>
@@ -38,7 +38,7 @@
         <a href="https://www.linkedin.com/in/welbert-gomes-8105b7219/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
     </p>
 
-    <script src="/js/register.js"></script>
+    <script src="js/register.js"></script>
     <script src="https://kit.fontawesome.com/04399c8787.js" crossorigin="anonymous"></script>
 </body>
 

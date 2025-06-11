@@ -12,8 +12,8 @@
 
     <nav class="navbar">
         <ul>
-            <li><a href="home.php"><i class="fa-brands fa-sticker-mule"></a></i></li>
-            <li><a href=""><i class="fa-solid fa-power-off"></i></a></li>
+            <li><a href="/home"><i class="fa-brands fa-sticker-mule"></a></i></li>
+            <li><a href="/close"><i class="fa-solid fa-power-off"></i></a></li>
         </ul>
     </nav>
 

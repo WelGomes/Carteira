@@ -7,7 +7,6 @@ if (elemento) {
     document.getElementById('lastName').style.borderColor = '#c41026';
     document.getElementById('email').style.borderColor = '#c41026';
     document.getElementById('password').style.borderColor = '#c41026';
- 
 }
 setTimeout(() => {
     document.getElementById('error').style.borderColor = 'rgb(40, 60, 80)';

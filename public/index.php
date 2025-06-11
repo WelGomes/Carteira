@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../config/autoload.php';
 require_once '../config/routes.php';
 

@@ -8,16 +8,16 @@ final class User
 {
 
     private int $id;
-    private string $name;
-    private string $lastName;
+    private ?string $name;
+    private ?string $lastName;
     private string $email;
     private string $password;
 
     public function __construct(
-        string $name, 
-        string $lastName, 
         string $email, 
-        string $password
+        string $password,
+        ?string $name = null,
+        ?string $lastName = null,
     ){
         $this->name = $name;
         $this->lastName = $lastName;
@@ -70,9 +70,14 @@ final class User
         return $this->password;
     }
 
-    public function save(): bool
+    public function register(): bool
     {
         return new UserDAO()->register($this);
+    }
+
+    public function login(): bool
+    {
+        return new UserDAO()->login($this);
     }
 
 }

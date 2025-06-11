@@ -15,12 +15,17 @@
 
         <form action="/login" method="post">
             <div class="form-content">
-                <input type="email" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Password">
+                <input type="email" name="email" id="emailLogin" placeholder="E-mail" value="<?= $_COOKIE['save_email'] ?? null ?>">
+                <input type="password" name="password" id="passwordLogin" placeholder="Password">
                 <div class="checkbox-container">
                     <label for="save"><input type="checkbox" name="save" id="save">Remember-me</label>
                     <a href="">Forgot password?</a>
                 </div>
+                
+                <?php if (!empty($error)): ?>
+                    <p id="error"><?= $error ?></p>
+                <?php endif ?>
+
                 <button type="submit">Login</button>
                 <p>Don't have account? <a href="/register">Register</a></p>
             </div>
@@ -31,6 +36,7 @@
         <a href="https://www.linkedin.com/in/welbert-gomes-8105b7219/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
     </p>
 
+    <script src="js/login.js"></script>
     <script src="https://kit.fontawesome.com/04399c8787.js" crossorigin="anonymous"></script>
 </body>
 

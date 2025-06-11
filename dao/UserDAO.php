@@ -20,8 +20,8 @@ final class UserDAO extends DAO
         $stmt = parent::$connect->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->bindValue(':email', $model->getEmail());
         $stmt->execute();
-        
-        if ($stmt->fetchAll()) {
+
+        if ($stmt->fetch()) {
             return false;
         }
 
@@ -37,5 +37,19 @@ final class UserDAO extends DAO
         }
 
         return $result;
+    }
+
+    public function login(User $model): bool
+    {
+        $stmt = parent::$connect->prepare('SELECT * FROM users WHERE email = :email');
+        $stmt->bindValue(':email', $model->getEmail());
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$result) {
+            return false;
+        }
+
+        return password_verify($model->getPassword(), $result['password']);
     }
 }
