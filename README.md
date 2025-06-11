@@ -19,7 +19,7 @@ Descrição breve do que faz o projeto e seu propósito.
 ## Instalação
 
 1. Clone o repositório  
-2. Crie um banco de dados conforme a imagem da pasta: \dao\db\image.png
+2. Crie um banco de dados conforme a imagem abaixo:
   ![Image](https://github.com/user-attachments/assets/a94a4dc8-d55e-4307-b5bd-a79f426c894c)
 3. Inicie o servidor PHP: `php -S localhost:8000 -t public`
 
