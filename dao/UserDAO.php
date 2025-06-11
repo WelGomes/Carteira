@@ -2,6 +2,7 @@
 
 namespace projeto\dao;
 
+use PDO;
 use projeto\model\User;
 
 final class UserDAO extends DAO
@@ -18,21 +19,23 @@ final class UserDAO extends DAO
     {
         $stmt = parent::$connect->prepare('SELECT * FROM users WHERE email = :email');
         $stmt->bindValue(':email', $model->getEmail());
-
-        if (!$stmt->execute()) {
-            $stmt = parent::$connect->prepare('INSERT INTO users (name, lastName, email, password) VALUES (:name, :lastName, :email, :password)');
-            $stmt->bindValue(':name', $model->getName());
-            $stmt->bindValue(':lastName', $model->getLastName());
-            $stmt->bindValue(':email', $model->getEmail());
-            $stmt->bindValue(':password', password_hash($model->getPassword(), PASSWORD_ARGON2ID));
-            $result = $stmt->execute();
-
-            if ($result) {
-                $model->setId(parent::$connect->lastInsertId());
-            }
-
-            return $result;
+        $stmt->execute();
+        
+        if ($stmt->fetchAll()) {
+            return false;
         }
-        return false;
+
+        $stmt = parent::$connect->prepare('INSERT INTO users (name, lastName, email, password) VALUES (:name, :lastName, :email, :password)');
+        $stmt->bindValue(':name', $model->getName());
+        $stmt->bindValue(':lastName', $model->getLastName());
+        $stmt->bindValue(':email', $model->getEmail());
+        $stmt->bindValue(':password', password_hash($model->getPassword(), PASSWORD_ARGON2ID));
+        $result = $stmt->execute();
+
+        if ($result) {
+            $model->setId(parent::$connect->lastInsertId());
+        }
+
+        return $result;
     }
 }
