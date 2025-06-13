@@ -11,14 +11,14 @@ final class UserController
     public static function close(): void
     {
         session_destroy();
-        header('Location: /login');
+        header('Location: /');
         exit;
     }
 
     public static function home(): void
     {   
         if($_SESSION['user_log'] != true) {
-            header('Location: /login');
+            header('Location: /');
         }
 
         require_once "../view/home.php";
@@ -55,6 +55,12 @@ final class UserController
                         'save_email',
                         $model->getEmail(),
                         time()+(60*60*24*30)
+                    );
+                } else {
+                    setcookie(
+                        'save_email',
+                        $model->getEmail(),
+                        time()-(60*60*24*30)
                     );
                 }
 

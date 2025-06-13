@@ -28,7 +28,7 @@
                     <p id="error"><?= $error ?></p>
                 <?php endif ?>
                 <button type="submit">Register</button>
-                <p><a href="/login">Have an account?</a></p>
+                <p><a href="/">Have an account?</a></p>
             </div>
         </form>
     </main>

@@ -24,13 +24,13 @@ function load(string $class, string $method): void
 
 $routes = [
     'POST' => [
-        '/login' => fn() =>  load('UserController', 'login'),
+        '/' => fn() =>  load('UserController', 'login'),
         '/register' => fn() => load('UserController', 'register'),
         '/home' => fn() => load('UserController', 'home'),
         '/close' => fn() => load('UserController', 'close'),
     ],
     'GET' => [
-        '/login' => fn() =>  load('UserController', 'login'),
+        '/' => fn() =>  load('UserController', 'login'),
         '/register' => fn() => load('UserController', 'register'),
         '/home' => fn() => load('UserController', 'home'),
         '/close' => fn() => load('UserController', 'close'),
