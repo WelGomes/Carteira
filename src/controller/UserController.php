@@ -97,7 +97,7 @@ final class UserController
                 $caseCryptoService = new CaseCryptoService();
                 $caseCryptoService->createCase($caseCrypto);
                 
-                header('Location: /login');
+                header('Location: /');
                 exit;
             }
         } catch (Exception $e) {
