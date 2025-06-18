@@ -3,7 +3,7 @@
 function load(string $class, string $method): void
 {
     try {
-        $classController = "\\projeto\\controller\\{$class}";
+        $classController = "\\projeto\\src\\controller\\{$class}";
 
         if (!class_exists($classController)) {
             throw new Exception("Class not exists $classController");

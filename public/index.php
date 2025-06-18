@@ -10,17 +10,16 @@ $request = $_SERVER['REQUEST_METHOD'];
 
 try {
 
-    if(!isset($request)) {
+    if (!isset($request)) {
         throw new Exception("Requisiton is error or not exists");
     }
 
-    if(!array_key_exists($uri, $routes[$request])) {
+    if (!array_key_exists($uri, $routes[$request])) {
         throw new Exception("Path not exists");
     }
 
     $routes[$request][$uri]();
-
-} catch(Exception $e) {
+} catch (Exception $e) {
     http_response_code(404);
     $e->getMessage();
     exit;

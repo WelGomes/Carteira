@@ -1,10 +1,10 @@
 <?php
 
-namespace projeto\dao;
+namespace projeto\src\dao;
 
 use PDO;
 
-abstract class DAO 
+abstract class DAO
 {
 
     protected static PDO $connect;
@@ -13,5 +13,4 @@ abstract class DAO
     {
         self::$connect = new PDO("mysql:host=localhost;dbname=casecrypto", 'root', '1234');
     }
-
 }

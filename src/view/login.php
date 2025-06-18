@@ -21,7 +21,7 @@
                     <label for="save"><input type="checkbox" name="save" id="save" <?php if (isset($_COOKIE['save_email'])) echo 'checked' ?>>Remember-me</label>
                     <a href="">Forgot password?</a>
                 </div>
-                
+
                 <?php if (!empty($error)): ?>
                     <p id="error"><?= $error ?></p>
                 <?php endif ?>

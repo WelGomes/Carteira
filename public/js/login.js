@@ -1,6 +1,6 @@
 const element = document.getElementById('error');
 
-if(element) {
+if (element) {
     document.getElementById('error').style.color = '#c41026';
     document.getElementById('passwordLogin').style.borderColor = '#c41026';
     document.getElementById('emailLogin').style.borderColor = '#c41026';

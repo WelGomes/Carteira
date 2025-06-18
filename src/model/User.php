@@ -1,55 +1,55 @@
 <?php
 
-namespace projeto\model;
-
-use projeto\dao\UserDAO;
+namespace projeto\src\model;
 
 final class User
 {
 
-    private int $id;
+    private ?int $id;
     private ?string $name;
     private ?string $lastName;
     private string $email;
     private string $password;
 
     public function __construct(
-        string $email, 
+        string $email,
         string $password,
         ?string $name = null,
         ?string $lastName = null,
-    ){
+        ?int $id = null,
+    ) {
         $this->name = $name;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->password = $password;
-    }
-
-    public function setId(int $id): void 
-    {   
         $this->id = $id;
     }
-    public function getId(): int
+
+    public function setId(int $id): void
     {
-        return $this->id;
+        $this->id = $id;
+    }
+    public function getId(): ?int
+    {
+        return $this->id ?? null;
     }
 
     public function setName(string $name): void
     {
         $this->name = $name;
     }
-    public function getName(): string
+    public function getName(): ?string
     {
-        return $this->name;
+        return $this->name ?? null;
     }
 
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
-        return $this->lastName;
+        return $this->lastName ?? null;
     }
 
     public function setEmail(string $email): void
@@ -69,15 +69,4 @@ final class User
     {
         return $this->password;
     }
-
-    public function register(): bool
-    {
-        return new UserDAO()->register($this);
-    }
-
-    public function login(): bool
-    {
-        return new UserDAO()->login($this);
-    }
-
 }
