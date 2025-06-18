@@ -21,7 +21,7 @@ final class UserController
 
     public static function home(): void
     {
-        if ($_SESSION['user_log'] != true) {
+        if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
             header('Location: /');
         }
 
