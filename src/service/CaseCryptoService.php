@@ -2,9 +2,9 @@
 
 namespace projeto\src\service;
 
+use Exception;
 use projeto\src\dao\CaseCryptoDAO;
 use projeto\src\model\CaseCrypto;
-use projeto\src\model\User;
 
 final class CaseCryptoService
 {
@@ -17,6 +17,13 @@ final class CaseCryptoService
 
     public function createCase(CaseCrypto $model): CaseCrypto
     {
-        return $this->dao->createCase($model);
+        $model = $this->dao->createCase($model);
+
+        if (empty($model)) {
+            throw new Exception("Error registering Case in the database");
+        }
+
+
+        return $model;
     }
 }

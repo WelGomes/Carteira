@@ -21,6 +21,6 @@ try {
     $routes[$request][$uri]();
 } catch (Exception $e) {
     http_response_code(404);
-    $e->getMessage();
+    echo $e->getMessage();
     exit;
 }

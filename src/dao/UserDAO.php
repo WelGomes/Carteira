@@ -14,9 +14,7 @@ final class UserDAO extends DAO
         parent::__construct();
     }
 
-
-
-    public function save(User $model): User
+    public function save(User $model): ?User
     {
         $stmt = parent::$connect->prepare('INSERT INTO user (name, lastName, email, password) VALUES (:name, :lastName, :email, :password)');
         $stmt->bindValue(':name', $model->getName());
@@ -26,7 +24,7 @@ final class UserDAO extends DAO
         $result = $stmt->execute();
 
         if (!$result) {
-            throw new Exception("Error registering user in the database");
+            return null;
         }
 
         $model->setId(parent::$connect->lastInsertId());
@@ -41,16 +39,16 @@ final class UserDAO extends DAO
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            return $user = new User(
-                name: $result['name'],
-                lastName: $result['lastName'],
-                email: $result['email'],
-                password: $result['password'],
-                id: $result['id']
-            );
+        if (!$result) {
+            return null;
         }
 
-        return null;
+        return $user = new User(
+            name: $result['name'],
+            lastName: $result['lastName'],
+            email: $result['email'],
+            password: $result['password'],
+            id: $result['id']
+        );
     }
 }

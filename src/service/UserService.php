@@ -36,7 +36,17 @@ final class UserService
             throw new Exception("Email already registered");
         }
 
-        return $this->dao->save($model);
+        if (empty($this->dao->getUserByEmail($model->getEmail()))) {
+            throw new Exception("Error registering user in the database");
+        }
+
+        $model = $this->dao->save($model);
+
+        if (empty($model)) {
+            throw new Exception("Error registering user in the database");
+        }
+
+        return $model;
     }
 
     public function login(User $model): User
@@ -55,7 +65,7 @@ final class UserService
             throw new Exception("E-mail or Password incorrect");
         }
 
-        return password_verify($model->getPassword(), $userExist->getPassword()) ? 
-        $userExist : throw new Exception("E-mail or Password incorrect");
+        return password_verify($model->getPassword(), $userExist->getPassword()) ?
+            $userExist : throw new Exception("E-mail or Password incorrect");
     }
 }

@@ -21,6 +21,7 @@ final class UserController
 
     public static function home(): void
     {
+
         if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
             header('Location: /');
         }
@@ -41,11 +42,11 @@ final class UserController
 
                 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
                 $password = filter_input(INPUT_POST, 'password');
-                
+
                 $model = new User(email: $email, password: $password);
                 $userService = new UserService();
 
-                $userService->login($model);
+                $model = $userService->login($model);
 
                 if (isset($_POST['save'])) {
                     setcookie(
@@ -62,8 +63,12 @@ final class UserController
                 }
 
                 $_SESSION['user_log'] = true;
+                $_SESSION['user_name'] = $model->getName();
+                $_SESSION['id'] = $model->getId();
+
                 header('Location: /home');
             }
+            
         } catch (Exception $e) {
             $error = $e->getMessage();
         }
@@ -75,6 +80,7 @@ final class UserController
     {
         $error = '';
         try {
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $name = trim(htmlspecialchars(filter_input(INPUT_POST, 'name'), ENT_QUOTES));
@@ -82,24 +88,25 @@ final class UserController
                 $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
                 $password = filter_input(INPUT_POST, 'password');
 
-                $models = new User(
-                    email: $email, 
-                    password: $password, 
-                    name: $name, 
+                $model = new User(
+                    email: $email,
+                    password: $password,
+                    name: $name,
                     lastName: $lastName,
                 );
 
                 $userService = new UserService();
-                $models = $userService->register($models);
-                
-                $caseCrypto = new CaseCrypto(userId: $models->getId());
-                
+                $models = $userService->register($model);
+
+                $caseCrypto = new CaseCrypto(userId: $model->getId());
+
                 $caseCryptoService = new CaseCryptoService();
                 $caseCryptoService->createCase($caseCrypto);
-                
+
                 header('Location: /');
                 exit;
             }
+
         } catch (Exception $e) {
             $error = $e->getMessage();
         }

@@ -2,7 +2,7 @@
 
 namespace projeto\src\service;
 
-use projeto\src\model\Coin;
+use projeto\src\model\CoinsAPI;
 
 final class APIService
 {
@@ -49,7 +49,7 @@ final class APIService
 
         foreach ($coins as $key => $value) {
             $listCoin[] =
-                new Coin(
+                new CoinsAPI(
                     name: $value['name'],
                     symbol: $value['symbol'],
                     image: $value['image'],

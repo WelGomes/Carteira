@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>CaseCrypto</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon/favicon.png" type="image/x-icon">
 </head>
 
 <body class="container-body-register">
@@ -33,10 +34,7 @@
         </form>
     </main>
 
-    <p class="rodape">
-        <a href="https://github.com/WelGomes" target="_blank"><i class="fa-brands fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/welbert-gomes-8105b7219/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-    </p>
+    <?php require_once "includes/rodape.php" ?>
 
     <script src="js/register.js"></script>
     <script src="https://kit.fontawesome.com/04399c8787.js" crossorigin="anonymous"></script>
