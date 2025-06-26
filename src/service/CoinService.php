@@ -26,7 +26,7 @@ final class CoinService
         $modelExist = $this->dao->getCoin($model->getName());
         
         if(!empty($modelExist)) {
-            $quantity = floatval($modelExist->getQuantity() + $model->getQuantity());
+            $quantity = $modelExist->getQuantity() + $model->getQuantity();
             $model->setQuantity($quantity);
         }
         

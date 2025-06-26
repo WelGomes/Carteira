@@ -2,7 +2,6 @@
 
 namespace projeto\src\dao;
 
-use Exception;
 use PDO;
 use projeto\src\model\Coin;
 
@@ -66,10 +65,9 @@ final class CoinDAO extends DAO
 
     public function updateCoin(Coin $model): ?Coin
     {
-        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE id = :id AND case_id = :case_id');
-        $stmt->bindValue(':price', $model->getQuantity());
-        $stmt->bindValue(':id', $model->getId());
-        $stmt->bindValue(':case_id', $model->getCaseId());
+        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE name = :name');
+        $stmt->bindValue(':quantity', $model->getQuantity());
+        $stmt->bindValue(':name', $model->getName());
         $result = $stmt->execute();
 
         if(!$result) {
