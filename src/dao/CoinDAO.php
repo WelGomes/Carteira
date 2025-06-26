@@ -9,13 +9,17 @@ use projeto\src\model\Coin;
 final class CoinDAO extends DAO
 {
 
-
     public function __construct()
     {
         parent::__construct();
     }
 
     public function save(Coin $model): ?Coin
+    {
+        return empty($this->getCoin($model->getName())) ? $this->register($model) : $this->updateCoin($model);
+    }
+
+    public function register(Coin $model): ?Coin
     {
         $stmt = parent::$connect->prepare('INSERT INTO coin (symbol, name, image, price, quantity, case_id) VALUES (:symbol, :name, :image, :price, :quantity, :case_id)');
         $stmt->bindValue(':symbol', $model->getSymbol());
@@ -59,4 +63,21 @@ final class CoinDAO extends DAO
 
         return $coin;
     }
+
+    public function updateCoin(Coin $model): ?Coin
+    {
+        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE id = :id AND case_id = :case_id');
+        $stmt->bindValue(':price', $model->getQuantity());
+        $stmt->bindValue(':id', $model->getId());
+        $stmt->bindValue(':case_id', $model->getCaseId());
+        $result = $stmt->execute();
+
+        if(!$result) {
+            return null;
+        }
+
+        return $model;
+
+    }
+
 }

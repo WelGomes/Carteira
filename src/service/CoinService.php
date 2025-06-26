@@ -23,15 +23,19 @@ final class CoinService
             throw new Exception("Quantity field must be above 0.0001");
         }
 
-        if($this->dao->getCoin($model->getName())) {
-            
+        $modelExist = $this->dao->getCoin($model->getName());
+        
+        if(!empty($modelExist)) {
+            $quantity = floatval($modelExist->getQuantity() + $model->getQuantity());
+            $model->setQuantity($quantity);
         }
         
-        if (empty($this->dao->save($model))) {
+        $model = $this->dao->save($model);
+
+        if (empty($model)) {
             throw new Exception("Error registering coin in the database");
         }
         
-
-        return $this->dao->save($model);
+        return $model;
     }
 }
