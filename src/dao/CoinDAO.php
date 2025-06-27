@@ -15,7 +15,7 @@ final class CoinDAO extends DAO
 
     public function save(Coin $model): ?Coin
     {
-        return empty($this->getCoinByName($model->getName())) ? $this->register($model) : $this->updateCoin($model);
+        return empty($this->getCoinByName($model->getName(), $model->getCaseId())) ? $this->register($model) : $this->updateCoin($model);
     }
 
     public function register(Coin $model): ?Coin
@@ -70,10 +70,11 @@ final class CoinDAO extends DAO
         return $model;
     }
 
-    public function getCoinByName(string $name): ?Coin
+    public function getCoinByName(string $name, int $caseId): ?Coin
     {
-        $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE name = :name');
+        $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE name = :name AND case_id = :case_id');
         $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':case_id', $caseId);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -97,9 +98,10 @@ final class CoinDAO extends DAO
 
     public function updateCoin(Coin $model): ?Coin
     {
-        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE name = :name');
+        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE name = :name AND case_id = :case_id');
         $stmt->bindValue(':quantity', $model->getQuantity());
         $stmt->bindValue(':name', $model->getName());
+        $stmt->bindValue(':case_id', $model->getCaseId());
         $result = $stmt->execute();
 
         if (!$result) {

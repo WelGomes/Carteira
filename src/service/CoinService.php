@@ -23,7 +23,7 @@ final class CoinService
             throw new Exception("Quantity field must be above 0.0001");
         }
 
-        $modelExist = $this->dao->getCoinByName($model->getName());
+        $modelExist = $this->dao->getCoinByName($model->getName(), $model->getCaseId());
 
         if (!empty($modelExist) && !$isSale) {
             $quantity = $modelExist->getQuantity() + $model->getQuantity();
