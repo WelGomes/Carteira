@@ -27,7 +27,7 @@ final class CoinController
                 $button = filter_input(INPUT_POST, 'action');
 
                 $caseService = new CaseCryptoService();
-                $case = $caseService->getCaseByUserId($_SESSION['id']);
+                $caseId = $caseService->getCaseByUserId($_SESSION['id']);
 
                 $model = new Coin(
                     symbol: $symbol,
@@ -35,7 +35,7 @@ final class CoinController
                     image: $image,
                     price: $price,
                     quantity: $quantity,
-                    caseId: $case->getId(),
+                    caseId: $caseId->getId(),
                 );
 
                 $coinService = new CoinService();
@@ -87,10 +87,10 @@ final class CoinController
     public static function list(): void
     {
         $caseService = new CaseCryptoService();
-        $case = $caseService->getCaseByUserId($_SESSION['id']);
+        $caseId = $caseService->getCaseByUserId($_SESSION['id']);
 
         $coinService = new CoinService();
-        $model = $coinService->getCoins($case->getId());
+        $model = $coinService->getCoins($caseId->getId());
 
         $balance = 0;
 
