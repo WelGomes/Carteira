@@ -38,9 +38,10 @@ final class CoinDAO extends DAO
         return $model;
     }
 
-    public function getCoins(): ?array
+    public function getCoins(int $userId): ?array
     {
-        $stmt = parent::$connect->prepare('SELECT * FROM coin');
+        $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE case_id = :case_id');
+        $stmt->bindValue(':case_id', $userId);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -26,4 +26,7 @@ final class CaseCryptoDAO extends DAO
         $model->setId(parent::$connect->lastInsertId());
         return $model;
     }
+
+    
+
 }

@@ -42,7 +42,7 @@ final class CoinController
 
                     case 'sale':
                         $coinService = new CoinService();
-                        $coins = $coinService->getCoins();
+                        $coins = $coinService->getCoins($_SESSION['id']);
 
                         foreach ($coins as $key => $value) {
                             if ($value->getName() === $model->getName()) {
@@ -84,7 +84,7 @@ final class CoinController
     public static function list(): void
     {
         $coinService = new CoinService();
-        $model = $coinService->getCoins();
+        $model = $coinService->getCoins($_SESSION['id']);
 
         $balance = 0;
 

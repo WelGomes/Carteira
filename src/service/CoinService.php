@@ -39,9 +39,9 @@ final class CoinService
         return $model;
     }
 
-    public function getCoins(): ?array
+    public function getCoins(int $caseId): ?array
     {
-        return $this->dao->getCoins();
+        return $this->dao->getCoins($caseId);
     }
 
     public function delete(Coin $model): bool
