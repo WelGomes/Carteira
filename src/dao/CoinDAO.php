@@ -15,7 +15,7 @@ final class CoinDAO extends DAO
 
     public function save(Coin $model): ?Coin
     {
-        return empty($this->getCoin($model->getName())) ? $this->register($model) : $this->updateCoin($model);
+        return empty($this->getCoinByName($model->getName())) ? $this->register($model) : $this->updateCoin($model);
     }
 
     public function register(Coin $model): ?Coin
@@ -38,7 +38,38 @@ final class CoinDAO extends DAO
         return $model;
     }
 
-    public function getCoin(string $name): ?Coin
+    public function getCoins(): ?array
+    {
+        $stmt = parent::$connect->prepare('SELECT * FROM coin');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($result)) {
+            return null;
+        }
+
+        $model = [];
+
+        foreach ($result as $key => $value) {
+
+            $coin = new Coin(
+                symbol: $value['symbol'],
+                name: $value['name'],
+                image: $value['image'],
+                price: $value['price'],
+                quantity: $value['quantity'],
+                caseId: $value['case_id'],
+            );
+
+            $coin->setId($value['id']);
+
+            $model[] = $coin;
+        }
+
+        return $model;
+    }
+
+    public function getCoinByName(string $name): ?Coin
     {
         $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE name = :name');
         $stmt->bindValue(':name', $name);
@@ -70,12 +101,23 @@ final class CoinDAO extends DAO
         $stmt->bindValue(':name', $model->getName());
         $result = $stmt->execute();
 
-        if(!$result) {
+        if (!$result) {
             return null;
         }
 
         return $model;
-
     }
 
+    public function deleteCoin(Coin $model): bool
+    {
+        $stmt = parent::$connect->prepare('DELETE FROM coin WHERE name = :name');
+        $stmt->bindValue(':name', $model->getName());
+        $result = $stmt->execute();
+
+        if (!$result) {
+            return false;
+        }
+
+        return true;
+    }
 }

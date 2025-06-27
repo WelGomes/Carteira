@@ -28,7 +28,7 @@ $routes = [
         '/register' => fn() => load('UserController', 'register'),
         '/home' => fn() => load('UserController', 'home'),
         '/close' => fn() => load('UserController', 'close'),
-        '/coin' => fn() => load('CoinController', 'saveCoin'),
+        '/case' => fn() => load('CoinController', 'saveCoin'),
     ],
     'GET' => [
         '/' => fn() =>  load('UserController', 'login'),

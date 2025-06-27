@@ -36,10 +36,6 @@ final class UserService
             throw new Exception("Email already registered");
         }
 
-        if (empty($this->dao->getUserByEmail($model->getEmail()))) {
-            throw new Exception("Error registering user in the database");
-        }
-
         $model = $this->dao->save($model);
 
         if (empty($model)) {

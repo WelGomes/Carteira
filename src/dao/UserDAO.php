@@ -43,10 +43,10 @@ final class UserDAO extends DAO
             return null;
         }
 
-        return $user = new User(
+        return new User(
             name: $result['name'],
             lastName: $result['lastName'],
-            email: $result['email'],
+            email: $email,
             password: $result['password'],
             id: $result['id']
         );
