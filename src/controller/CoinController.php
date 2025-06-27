@@ -3,7 +3,9 @@
 namespace projeto\src\controller;
 
 use Exception;
+use projeto\src\model\CaseCrypto;
 use projeto\src\model\Coin;
+use projeto\src\service\CaseCryptoService;
 use projeto\src\service\CoinService;
 
 final class CoinController
@@ -24,25 +26,28 @@ final class CoinController
                 $quantity = floatval(filter_input(INPUT_POST, 'quantity'));
                 $button = filter_input(INPUT_POST, 'action');
 
+                $caseService = new CaseCryptoService();
+                $case = $caseService->getCaseByUserId($_SESSION['id']);
+
                 $model = new Coin(
                     symbol: $symbol,
                     name: $name,
                     image: $image,
                     price: $price,
                     quantity: $quantity,
-                    caseId: $_SESSION['id'],
+                    caseId: $case->getId(),
                 );
+
+                $coinService = new CoinService();
 
                 switch ($button) {
                     case 'add':
-                        $coinService = new CoinService();
                         $model = $coinService->save(model: $model, isSale: false);
                         $page = '/home';
                         break;
 
                     case 'sale':
-                        $coinService = new CoinService();
-                        $coins = $coinService->getCoins($_SESSION['id']);
+                        $coins = $coinService->getCoins($case->getId());
 
                         foreach ($coins as $key => $value) {
                             if ($value->getName() === $model->getName()) {
@@ -56,13 +61,11 @@ final class CoinController
                         break;
 
                     case 'all':
-                        $coinService = new CoinService();
                         $model = $coinService->delete($model);
                         $page = '/case';
                         break;
 
                     case 'update':
-                        $coinService = new CoinService();
                         $model = $coinService->save($model, false);
                         $page = '/case';
                         break;
@@ -83,8 +86,11 @@ final class CoinController
 
     public static function list(): void
     {
+        $caseService = new CaseCryptoService();
+        $case = $caseService->getCaseByUserId($_SESSION['id']);
+
         $coinService = new CoinService();
-        $model = $coinService->getCoins($_SESSION['id']);
+        $model = $coinService->getCoins($case->getId());
 
         $balance = 0;
 

@@ -23,6 +23,16 @@ final class CaseCryptoService
             throw new Exception("Error registering Case in the database");
         }
 
+        return $model;
+    }
+
+    public function getCaseByUserId(int $id): CaseCrypto
+    {
+        $model = $this->dao->getCaseByUserId($id);
+
+        if(empty($model)) {
+            throw new Exception("Case not found for user.");
+        }
 
         return $model;
     }

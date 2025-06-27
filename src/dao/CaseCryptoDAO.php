@@ -3,6 +3,7 @@
 namespace projeto\src\dao;
 
 use Exception;
+use PDO;
 use projeto\src\model\CaseCrypto;
 
 final class CaseCryptoDAO extends DAO
@@ -27,6 +28,20 @@ final class CaseCryptoDAO extends DAO
         return $model;
     }
 
-    
+    public function getCaseByUserId(int $id): ?CaseCrypto
+    {
+        $stmt = parent::$connect->prepare('SELECT * FROM casecrypto WHERE user_id = :user_id');
+        $stmt->bindValue(':user_id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if (empty($result)) {
+            return null;
+        }
+
+        $model = new CaseCrypto(userId: $result['user_id']);
+        $model->setId($result['id']);
+
+        return $model;
+    }
 }
