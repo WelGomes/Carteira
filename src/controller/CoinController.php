@@ -47,7 +47,7 @@ final class CoinController
                         break;
 
                     case 'sale':
-                        $coins = $coinService->getCoins($case->getId());
+                        $coins = $coinService->getCoins($caseId->getId());
 
                         foreach ($coins as $key => $value) {
                             if ($value->getName() === $model->getName()) {
