@@ -2,7 +2,6 @@
 
 namespace projeto\src\dao;
 
-use Exception;
 use PDO;
 use projeto\src\model\CaseCrypto;
 

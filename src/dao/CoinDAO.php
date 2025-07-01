@@ -49,25 +49,18 @@ final class CoinDAO extends DAO
             return null;
         }
 
-        $model = [];
-
-        foreach ($result as $key => $value) {
-
+        return array_map(function (array $model) {
             $coin = new Coin(
-                symbol: $value['symbol'],
-                name: $value['name'],
-                image: $value['image'],
-                price: $value['price'],
-                quantity: $value['quantity'],
-                caseId: $value['case_id'],
+                symbol: $model['symbol'],
+                name: $model['name'],
+                image: $model['image'],
+                price: $model['price'],
+                quantity: $model['quantity'],
+                caseId: $model['case_id'],
             );
-
-            $coin->setId($value['id']);
-
-            $model[] = $coin;
-        }
-
-        return $model;
+            $coin->setId($model['id']);
+            return $coin;
+        }, $result);
     }
 
     public function getCoinByName(string $name, int $caseId): ?Coin
