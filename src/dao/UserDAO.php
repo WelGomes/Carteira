@@ -1,10 +1,9 @@
 <?php
 
-namespace Carteira\src\dao;
+namespace Welbert\Carteira\dao;
 
-use Carteira\src\model\User;
-use Exception;
 use PDO;
+use Welbert\Carteira\model\User;
 
 final class UserDAO extends DAO
 {

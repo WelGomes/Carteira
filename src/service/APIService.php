@@ -1,8 +1,9 @@
 <?php
 
-namespace Carteira\src\service;
+namespace Welbert\Carteira\service;
 
-use Carteira\src\model\CoinsAPI;
+use Welbert\Carteira\exception\CoinsAPIException;
+use Welbert\Carteira\model\CoinsAPI;
 
 final class APIService
 {
@@ -34,17 +35,13 @@ final class APIService
         $listCoin = [];
 
         if ($err) {
-            return $listCoin[] = [
-                'error' => "cURL Error: {$err}"
-            ];
+            throw new CoinsAPIException("cURL Error: {$err}");
         }
 
         $coins = json_decode($response, true);
 
         if (!is_array($coins)) {
-            return $listCoin = [
-                'error' => 'Erro ao decodificar resposta da API'
-            ];
+            throw new CoinsAPIException('Error decoding API response');
         }
 
         foreach ($coins as $key => $value) {

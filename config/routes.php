@@ -4,7 +4,7 @@ function load(string $class, string $method): void
 {
     try {
 
-        $classController = "\\Carteira\\src\\controller\\{$class}";
+        $classController = "\\Welbert\\Carteira\\controller\\{$class}";
 
         if (!class_exists($classController)) {
             throw new Exception("Class not exists" . dirname(__FILE__, 3) . $classController);

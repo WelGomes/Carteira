@@ -1,0 +1,15 @@
+{
+    "name": "welbert/carteira",
+    "autoload": {
+        "psr-4": {
+            "Welbert\\Carteira\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Welbert Gomes",
+            "email": "welbert.gomes12@gmail.com"
+        }
+    ],
+    "require": {}
+}

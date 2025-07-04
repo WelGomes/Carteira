@@ -1,9 +1,9 @@
 <?php
 
-namespace Carteira\src\dao;
+namespace Welbert\Carteira\dao;
 
-use Carteira\src\model\CaseCrypto;
 use PDO;
+use Welbert\Carteira\model\CaseCrypto;
 
 final class CaseCryptoDAO extends DAO
 {

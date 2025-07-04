@@ -1,9 +1,9 @@
 <?php
 
-namespace Carteira\src\dao;
+namespace Welbert\Carteira\dao;
 
-use Carteira\src\model\Coin;
 use PDO;
+use Welbert\Carteira\model\Coin;
 
 final class CoinDAO extends DAO
 {

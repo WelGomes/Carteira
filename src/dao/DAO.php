@@ -1,6 +1,6 @@
 <?php
 
-namespace Carteira\src\dao;
+namespace Welbert\Carteira\dao;
 
 use PDO;
 

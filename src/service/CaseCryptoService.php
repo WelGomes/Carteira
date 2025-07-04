@@ -1,10 +1,11 @@
 <?php
 
-namespace Carteira\src\service;
+namespace Welbert\Carteira\service;
 
-use Carteira\src\dao\CaseCryptoDAO;
-use Carteira\src\model\CaseCrypto;
 use Exception;
+use Welbert\Carteira\dao\CaseCryptoDAO;
+use Welbert\Carteira\exception\CaseCryptoException;
+use Welbert\Carteira\model\CaseCrypto;
 
 final class CaseCryptoService
 {
@@ -20,7 +21,7 @@ final class CaseCryptoService
         $model = $this->dao->createCase($model);
 
         if (empty($model)) {
-            throw new Exception("Error registering Case in the database");
+            throw new CaseCryptoException("Error registering Case in the database");
         }
 
         return $model;
@@ -31,7 +32,7 @@ final class CaseCryptoService
         $model = $this->dao->getCaseByUserId($id);
 
         if(empty($model)) {
-            throw new Exception("Case not found for user.");
+            throw new CaseCryptoException("Case not found for user.");
         }
 
         return $model;

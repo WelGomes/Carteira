@@ -1,13 +1,16 @@
 <?php
 
-namespace Carteira\src\controller;
+namespace Welbert\Carteira\controller;
 
-use Carteira\src\model\CaseCrypto;
-use Carteira\src\model\User;
-use Carteira\src\service\APIService;
-use Carteira\src\service\CaseCryptoService;
-use Carteira\src\service\UserService;
 use Exception;
+use Welbert\Carteira\exception\CaseCryptoException;
+use Welbert\Carteira\exception\CoinsAPIException;
+use Welbert\Carteira\exception\UserException;
+use Welbert\Carteira\model\CaseCrypto;
+use Welbert\Carteira\model\User;
+use Welbert\Carteira\service\APIService;
+use Welbert\Carteira\service\CaseCryptoService;
+use Welbert\Carteira\service\UserService;
 
 final class UserController
 {
@@ -21,21 +24,22 @@ final class UserController
 
     public static function home(): void
     {
+        try {
+            if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
+                header('Location: /');
+            }
 
-        if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
-            header('Location: /');
+            $API = new APIService();
+            $coin = $API->listCoin();
+        } catch (CoinsAPIException $e) {
+            $error = $e->getMessage();
         }
-
-        $API = new APIService();
-        $coin = $API->listCoin();
-
         require_once "../src/view/home.php";
         exit;
     }
 
     public static function login(): void
     {
-        $error = '';
         try {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -68,8 +72,7 @@ final class UserController
 
                 header('Location: /home');
             }
-            
-        } catch (Exception $e) {
+        } catch (UserException $e) {
             $error = $e->getMessage();
         }
         require_once "../src/view/login.php";
@@ -78,7 +81,6 @@ final class UserController
 
     public static function register(): void
     {
-        $error = '';
         try {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -106,8 +108,9 @@ final class UserController
                 header('Location: /');
                 exit;
             }
-
-        } catch (Exception $e) {
+        } catch (UserException $e) {
+            $error = $e->getMessage();
+        } catch (CaseCryptoException $e) {
             $error = $e->getMessage();
         }
 

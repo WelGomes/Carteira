@@ -26,8 +26,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (array_key_exists('error', $coin)): ?>
-                        <p><?= $coin['error'] ?></p>
+                    <?php if ($error): ?>
+                        <p><?= $error ?></p>
                     <?php else: ?>
                         <?php foreach ($coin as $key => $value): ?>
                             <form action="/case" method="post">

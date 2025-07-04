@@ -1,6 +1,6 @@
 <?php
 
-namespace Carteira\src\model;
+namespace Welbert\Carteira\model;
 
 
 final class CoinsAPI

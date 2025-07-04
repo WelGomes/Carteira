@@ -1,19 +1,19 @@
 <?php
 
-namespace Carteira\src\controller;
+namespace Welbert\Carteira\controller;
 
-use Carteira\src\model\Coin;
-use Carteira\src\service\CaseCryptoService;
-use Carteira\src\service\CoinService;
 use Exception;
+use Welbert\Carteira\exception\CaseCryptoException;
+use Welbert\Carteira\exception\CoinException;
+use Welbert\Carteira\model\Coin;
+use Welbert\Carteira\service\CaseCryptoService;
+use Welbert\Carteira\service\CoinService;
 
 final class CoinController
 {
 
     public static function saveCoin(): void
     {
-        $message = '';
-        $page = '';
         try {
 
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -72,7 +72,9 @@ final class CoinController
 
                 $message = "Crypto Registration Success";
             }
-        } catch (Exception $e) {
+        } catch (CaseCryptoException $e) {
+            $message = $e->getMessage();
+        } catch (CoinException $e) {
             $message = $e->getMessage();
         }
 
@@ -85,18 +87,24 @@ final class CoinController
 
     public static function list(): void
     {
-        $caseService = new CaseCryptoService();
-        $caseId = $caseService->getCaseByUserId($_SESSION['id']);
+        try {
+            $caseService = new CaseCryptoService();
+            $caseId = $caseService->getCaseByUserId($_SESSION['id']);
 
-        $coinService = new CoinService();
-        $model = $coinService->getCoins($caseId->getId());
+            $coinService = new CoinService();
+            $model = $coinService->getCoins($caseId->getId());
 
-        $balance = 0;
+            $balance = 0;
 
-        if (!empty($model)) {
-            foreach ($model as $key => $value) {
-                $balance += $value->getPrice() * $value->getQuantity();
+            if (!empty($model)) {
+                foreach ($model as $key => $value) {
+                    $balance += $value->getPrice() * $value->getQuantity();
+                }
             }
+        } catch (CaseCryptoException $e) {
+            $error = $e->getMessage();
+        } catch (CoinException $e) {
+            $error = $e->getMessage();
         }
 
         require_once "../src/view/case.php";

@@ -1,10 +1,11 @@
 <?php
 
-namespace Carteira\src\service;
+namespace Welbert\Carteira\service;
 
-use Carteira\src\dao\CoinDAO;
-use Carteira\src\model\Coin;
 use Exception;
+use Welbert\Carteira\dao\CoinDAO;
+use Welbert\Carteira\exception\CoinException;
+use Welbert\Carteira\model\Coin;
 
 final class CoinService
 {
@@ -20,7 +21,7 @@ final class CoinService
     {
 
         if (empty($model->getQuantity()) || $model->getQuantity() < 0.001) {
-            throw new Exception("Quantity field must be above 0.0001");
+            throw new CoinException("Quantity field must be above 0.0001");
         }
 
         $modelExist = $this->dao->getCoinByName($model->getName(), $model->getCaseId());
@@ -33,7 +34,7 @@ final class CoinService
         $model = $this->dao->save($model);
 
         if (empty($model)) {
-            throw new Exception("Error registering coin in the database");
+            throw new CoinException("Error registering coin in the database");
         }
 
         return $model;
@@ -46,6 +47,6 @@ final class CoinService
 
     public function delete(Coin $model): bool
     {
-        return $this->dao->deleteCoin($model) ?? throw new Exception("Error in delete Coin");
+        return $this->dao->deleteCoin($model) ?? throw new CoinException("Error in delete Coin");
     }
 }
