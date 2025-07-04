@@ -1,10 +1,10 @@
 <?php
 
-namespace projeto\src\dao;
+namespace Carteira\src\dao;
 
+use Carteira\src\model\User;
 use Exception;
 use PDO;
-use projeto\src\model\User;
 
 final class UserDAO extends DAO
 {

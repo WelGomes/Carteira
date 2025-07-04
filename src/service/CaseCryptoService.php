@@ -1,10 +1,10 @@
 <?php
 
-namespace projeto\src\service;
+namespace Carteira\src\service;
 
+use Carteira\src\dao\CaseCryptoDAO;
+use Carteira\src\model\CaseCrypto;
 use Exception;
-use projeto\src\dao\CaseCryptoDAO;
-use projeto\src\model\CaseCrypto;
 
 final class CaseCryptoService
 {

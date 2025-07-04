@@ -1,6 +1,6 @@
 <?php
 
-namespace projeto\src\model;
+namespace Carteira\src\model;
 
 final class User
 {

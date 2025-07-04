@@ -1,9 +1,9 @@
 <?php
 
-namespace projeto\src\dao;
+namespace Carteira\src\dao;
 
+use Carteira\src\model\Coin;
 use PDO;
-use projeto\src\model\Coin;
 
 final class CoinDAO extends DAO
 {

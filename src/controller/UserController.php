@@ -1,13 +1,13 @@
 <?php
 
-namespace projeto\src\controller;
+namespace Carteira\src\controller;
 
+use Carteira\src\model\CaseCrypto;
+use Carteira\src\model\User;
+use Carteira\src\service\APIService;
+use Carteira\src\service\CaseCryptoService;
+use Carteira\src\service\UserService;
 use Exception;
-use projeto\src\model\CaseCrypto;
-use projeto\src\model\User;
-use projeto\src\service\APIService;
-use projeto\src\service\CaseCryptoService;
-use projeto\src\service\UserService;
 
 final class UserController
 {

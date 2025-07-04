@@ -1,6 +1,6 @@
 <?php
 
-namespace projeto\src\dao;
+namespace Carteira\src\dao;
 
 use PDO;
 
@@ -11,6 +11,6 @@ abstract class DAO
 
     public function __construct()
     {
-        self::$connect = new PDO("mysql:host=localhost;dbname=casecrypto", 'root', '1234');
+        self::$connect = new PDO("mysql:host=localhost;dbname=casecrypto", 'root', 'Root.123');
     }
 }

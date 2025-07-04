@@ -3,10 +3,11 @@
 function load(string $class, string $method): void
 {
     try {
-        $classController = "\\projeto\\src\\controller\\{$class}";
+
+        $classController = "\\Carteira\\src\\controller\\{$class}";
 
         if (!class_exists($classController)) {
-            throw new Exception("Class not exists $classController");
+            throw new Exception("Class not exists" . dirname(__FILE__, 3) . $classController);
         }
 
         $classNew = new $classController();

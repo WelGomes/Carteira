@@ -1,10 +1,10 @@
 <?php
 
-namespace projeto\src\service;
+namespace Carteira\src\service;
 
+use Carteira\src\dao\CoinDAO;
+use Carteira\src\model\Coin;
 use Exception;
-use projeto\src\dao\CoinDAO;
-use projeto\src\model\Coin;
 
 final class CoinService
 {

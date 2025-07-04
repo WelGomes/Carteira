@@ -1,8 +1,8 @@
 <?php
 
-namespace projeto\src\service;
+namespace Carteira\src\service;
 
-use projeto\src\model\CoinsAPI;
+use Carteira\src\model\CoinsAPI;
 
 final class APIService
 {

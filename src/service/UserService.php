@@ -1,10 +1,10 @@
 <?php
 
-namespace projeto\src\service;
+namespace Carteira\src\service;
 
+use Carteira\src\dao\UserDAO;
+use Carteira\src\model\User;
 use Exception;
-use projeto\src\dao\UserDAO;
-use projeto\src\model\User;
 
 final class UserService
 {

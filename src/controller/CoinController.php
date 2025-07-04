@@ -1,12 +1,11 @@
 <?php
 
-namespace projeto\src\controller;
+namespace Carteira\src\controller;
 
+use Carteira\src\model\Coin;
+use Carteira\src\service\CaseCryptoService;
+use Carteira\src\service\CoinService;
 use Exception;
-use projeto\src\model\CaseCrypto;
-use projeto\src\model\Coin;
-use projeto\src\service\CaseCryptoService;
-use projeto\src\service\CoinService;
 
 final class CoinController
 {
