@@ -1,23 +1,19 @@
 <?php
 
-namespace Welbert\Carteira\controller;
+namespace Src\controller;
 
-use Exception;
-use Welbert\Carteira\exception\CaseCryptoException;
-use Welbert\Carteira\exception\CoinException;
-use Welbert\Carteira\model\Coin;
-use Welbert\Carteira\service\CaseCryptoService;
-use Welbert\Carteira\service\CoinService;
+use Src\exception\CaseCryptoException;
+use Src\exception\CoinException;
+use Src\model\Coin;
+use Src\service\CaseCryptoService;
+use Src\service\CoinService;
 
 final class CoinController
 {
-
-    public static function saveCoin(): void
+    public function saveCoin(): void
     {
         try {
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
                 $image = filter_input(INPUT_POST, 'image');
                 $symbol = filter_input(INPUT_POST, 'symbol');
                 $name = filter_input(INPUT_POST, 'name');
@@ -38,37 +34,7 @@ final class CoinController
                 );
 
                 $coinService = new CoinService();
-
-                switch ($button) {
-                    case 'add':
-                        $model = $coinService->save(model: $model, isSale: false);
-                        $page = '/home';
-                        break;
-
-                    case 'sale':
-                        $coins = $coinService->getCoins($caseId->getId());
-
-                        foreach ($coins as $key => $value) {
-                            if ($value->getName() === $model->getName()) {
-                                $valueQuantity = $value->getQuantity() - $model->getQuantity();
-                                $model->setQuantity($valueQuantity);
-                            }
-                        }
-
-                        $model = $coinService->save(model: $model, isSale: true);
-                        $page = '/case';
-                        break;
-
-                    case 'all':
-                        $model = $coinService->delete($model);
-                        $page = '/case';
-                        break;
-
-                    case 'update':
-                        $model = $coinService->save($model, false);
-                        $page = '/case';
-                        break;
-                }
+                $coinService->register(button: $button, model: $model);
 
                 $message = "Crypto Registration Success";
             }
@@ -80,13 +46,13 @@ final class CoinController
 
         echo "<script>
                 alert('" . htmlspecialchars($message, ENT_QUOTES) . "');
-                window.location.href='$page';
+                window.location.href='/case';
             </script>";
         exit;
     }
 
-    public static function list(): void
-    {
+    public function list(): void
+    {   
         try {
             $caseService = new CaseCryptoService();
             $caseId = $caseService->getCaseByUserId($_SESSION['id']);

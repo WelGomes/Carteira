@@ -4,7 +4,7 @@ function load(string $class, string $method): void
 {
     try {
 
-        $classController = "\\Welbert\\Carteira\\controller\\{$class}";
+        $classController = "\\Src\\controller\\{$class}";
 
         if (!class_exists($classController)) {
             throw new Exception("Class not exists" . dirname(__FILE__, 3) . $classController);
@@ -16,7 +16,7 @@ function load(string $class, string $method): void
             throw new Exception("Method not exists");
         }
 
-        $classNew::$method();
+        $classNew->$method();
     } catch (Exception $e) {
         echo $e->getMessage();
     }

@@ -1,25 +1,23 @@
 <?php
 
-namespace Welbert\Carteira\service;
+namespace Src\service;
 
-use Exception;
-use Welbert\Carteira\dao\UserDAO;
-use Welbert\Carteira\exception\UserException;
-use Welbert\Carteira\model\User;
+use Src\dao\DAO;
+use Src\dao\UserDAO;
+use Src\exception\UserException;
+use Src\model\User;
 
 final class UserService
 {
-
-    private UserDAO $dao;
+    private UserDAO $UserDAO;
 
     public function __construct()
     {
-        $this->dao = new UserDAO();
+        $this->UserDAO = new UserDAO();
     }
 
     public function register(User $model): User
     {
-
         if (
             empty($model->getName()) ||
             empty($model->getLastName()) ||
@@ -33,11 +31,11 @@ final class UserService
             throw new UserException("Incorrect e-mail");
         }
 
-        if ($this->dao->getUserByEmail($model->getEmail())) {
+        if ($this->UserDAO->getUserByEmail($model->getEmail())) {
             throw new UserException("Email already registered");
         }
 
-        $model = $this->dao->save($model);
+        $model = $this->UserDAO->save($model);
 
         if (empty($model)) {
             throw new UserException("Error registering user in the database");
@@ -56,7 +54,7 @@ final class UserService
             throw new UserException("Incorrect e-mail");
         }
 
-        $userExist = $this->dao->getUserByEmail($model->getEmail());
+        $userExist = $this->UserDAO->getUserByEmail($model->getEmail());
 
         if (!$userExist) {
             throw new UserException("E-mail or Password incorrect");

@@ -1,37 +1,72 @@
 <?php
 
-namespace Welbert\Carteira\service;
+namespace Src\service;
 
-use Exception;
-use Welbert\Carteira\dao\CoinDAO;
-use Welbert\Carteira\exception\CoinException;
-use Welbert\Carteira\model\Coin;
+use Src\dao\CoinDAO;
+use Src\dao\DAO;
+use Src\exception\CoinException;
+use Src\model\Coin;
 
 final class CoinService
 {
-
-    private CoinDAO $dao;
+    private CoinDAO $CoinDAO;
 
     public function __construct()
     {
-        $this->dao = new CoinDAO();
+        $this->CoinDAO = new CoinDAO();
+    }
+
+    public function register(string $button, Coin $model): mixed
+    {
+        switch ($button) {
+            case 'add':
+                return $this->save(model: $model, isSale: false);
+                break;
+
+            case 'sale':
+                $coins = $this->getCoins($model->getCaseId());
+
+                foreach ($coins as $key => $value) {
+                    if ($value->getName() === $model->getName()) {
+                        if($model->getQuantity() > $value->getQuantity()) {
+                            throw new CoinException("You cannot sell more than you own");
+                        }
+                        $valueQuantity = $value->getQuantity() - $model->getQuantity();
+                        $model->setQuantity($valueQuantity);
+                    }
+                }
+
+                return $this->save(model: $model, isSale: true);
+                break;
+
+            case 'all':
+                return $this->delete($model);
+                break;
+
+            case 'update':
+                return $this->save($model, isSale: false);
+                break;
+
+            default:
+                throw new CoinException("Invalid action: $button");
+                break;
+        }
     }
 
     public function save(Coin $model, bool $isSale): Coin
     {
-
         if (empty($model->getQuantity()) || $model->getQuantity() < 0.001) {
             throw new CoinException("Quantity field must be above 0.0001");
         }
 
-        $modelExist = $this->dao->getCoinByName($model->getName(), $model->getCaseId());
+        $modelExist = $this->CoinDAO->getCoinByName($model->getName(), $model->getCaseId());
 
         if (!empty($modelExist) && !$isSale) {
             $quantity = $modelExist->getQuantity() + $model->getQuantity();
             $model->setQuantity($quantity);
         }
 
-        $model = $this->dao->save($model);
+        $model = $this->CoinDAO->save($model);
 
         if (empty($model)) {
             throw new CoinException("Error registering coin in the database");
@@ -42,11 +77,11 @@ final class CoinService
 
     public function getCoins(int $caseId): ?array
     {
-        return $this->dao->getCoins($caseId);
+        return $this->CoinDAO->getCoins($caseId);
     }
 
     public function delete(Coin $model): bool
     {
-        return $this->dao->deleteCoin($model) ?? throw new CoinException("Error in delete Coin");
+        return $this->CoinDAO->deleteCoin($model) ?? throw new CoinException("Error in delete Coin");
     }
 }

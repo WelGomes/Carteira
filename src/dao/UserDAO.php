@@ -1,21 +1,23 @@
 <?php
 
-namespace Welbert\Carteira\dao;
+namespace Src\dao;
 
 use PDO;
-use Welbert\Carteira\model\User;
+use Src\model\User;
 
 final class UserDAO extends DAO
 {
 
+    private PDO $dao;
+
     public function __construct()
     {
-        parent::__construct();
+        $this->dao = $this->getConnect();
     }
 
     public function save(User $model): ?User
     {
-        $stmt = parent::$connect->prepare('INSERT INTO user (name, lastName, email, password) VALUES (:name, :lastName, :email, :password)');
+        $stmt = $this->dao->prepare('INSERT INTO user (name, lastName, email, password) VALUES (:name, :lastName, :email, :password)');
         $stmt->bindValue(':name', $model->getName());
         $stmt->bindValue(':lastName', $model->getLastName());
         $stmt->bindValue(':email', $model->getEmail());
@@ -26,14 +28,13 @@ final class UserDAO extends DAO
             return null;
         }
 
-        $model->setId(parent::$connect->lastInsertId());
+        $model->setId($this->dao->lastInsertId());
         return $model;
     }
 
     public function getUserByEmail(string $email): ?User
     {
-
-        $stmt = parent::$connect->prepare('SELECT * FROM user WHERE email = :email');
+        $stmt = $this->dao->prepare('SELECT * FROM user WHERE email = :email');
         $stmt->bindValue(':email', $email);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

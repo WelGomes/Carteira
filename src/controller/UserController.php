@@ -1,29 +1,28 @@
 <?php
 
-namespace Welbert\Carteira\controller;
+namespace Src\controller;
 
-use Exception;
-use Welbert\Carteira\exception\CaseCryptoException;
-use Welbert\Carteira\exception\CoinsAPIException;
-use Welbert\Carteira\exception\UserException;
-use Welbert\Carteira\model\CaseCrypto;
-use Welbert\Carteira\model\User;
-use Welbert\Carteira\service\APIService;
-use Welbert\Carteira\service\CaseCryptoService;
-use Welbert\Carteira\service\UserService;
+use Src\exception\CaseCryptoException;
+use Src\exception\CoinsAPIException;
+use Src\exception\UserException;
+use Src\model\CaseCrypto;
+use Src\model\User;
+use Src\service\APIService;
+use Src\service\CaseCryptoService;
+use Src\service\UserService;
 
 final class UserController
 {
 
-    public static function close(): void
+    public function close(): void
     {
         session_destroy();
         header('Location: /');
         exit;
     }
 
-    public static function home(): void
-    {
+    public function home(): void
+    {   
         try {
             if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
                 header('Location: /');
@@ -38,7 +37,7 @@ final class UserController
         exit;
     }
 
-    public static function login(): void
+    public function login(): void
     {
         try {
 
@@ -79,7 +78,7 @@ final class UserController
         exit;
     }
 
-    public static function register(): void
+    public function register(): void
     {
         try {
 

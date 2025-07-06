@@ -1,16 +1,17 @@
 <?php
 
-namespace Welbert\Carteira\dao;
+namespace Src\dao;
 
 use PDO;
-use Welbert\Carteira\model\Coin;
+use Src\model\Coin;
 
 final class CoinDAO extends DAO
 {
+    private PDO $dao;
 
     public function __construct()
     {
-        parent::__construct();
+        $this->dao = $this->getConnect();
     }
 
     public function save(Coin $model): ?Coin
@@ -20,7 +21,7 @@ final class CoinDAO extends DAO
 
     public function register(Coin $model): ?Coin
     {
-        $stmt = parent::$connect->prepare('INSERT INTO coin (symbol, name, image, price, quantity, case_id) VALUES (:symbol, :name, :image, :price, :quantity, :case_id)');
+        $stmt = $this->dao->prepare('INSERT INTO coin (symbol, name, image, price, quantity, case_id) VALUES (:symbol, :name, :image, :price, :quantity, :case_id)');
         $stmt->bindValue(':symbol', $model->getSymbol());
         $stmt->bindValue(':name', $model->getName());
         $stmt->bindValue(':image', $model->getImage());
@@ -33,14 +34,14 @@ final class CoinDAO extends DAO
             return null;
         }
 
-        $model->setId(parent::$connect->lastInsertId());
+        $model->setId($this->dao->lastInsertId());
 
         return $model;
     }
 
     public function getCoins(int $userId): ?array
     {
-        $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE case_id = :case_id');
+        $stmt = $this->dao->prepare('SELECT * FROM coin WHERE case_id = :case_id');
         $stmt->bindValue(':case_id', $userId);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -65,7 +66,7 @@ final class CoinDAO extends DAO
 
     public function getCoinByName(string $name, int $caseId): ?Coin
     {
-        $stmt = parent::$connect->prepare('SELECT * FROM coin WHERE name = :name AND case_id = :case_id');
+        $stmt = $this->dao->prepare('SELECT * FROM coin WHERE name = :name AND case_id = :case_id');
         $stmt->bindValue(':name', $name);
         $stmt->bindValue(':case_id', $caseId);
         $stmt->execute();
@@ -91,7 +92,7 @@ final class CoinDAO extends DAO
 
     public function updateCoin(Coin $model): ?Coin
     {
-        $stmt = parent::$connect->prepare('UPDATE coin SET quantity = :quantity WHERE name = :name AND case_id = :case_id');
+        $stmt = $this->dao->prepare('UPDATE coin SET quantity = :quantity WHERE name = :name AND case_id = :case_id');
         $stmt->bindValue(':quantity', $model->getQuantity());
         $stmt->bindValue(':name', $model->getName());
         $stmt->bindValue(':case_id', $model->getCaseId());
@@ -106,7 +107,7 @@ final class CoinDAO extends DAO
 
     public function deleteCoin(Coin $model): bool
     {
-        $stmt = parent::$connect->prepare('DELETE FROM coin WHERE name = :name');
+        $stmt = $this->dao->prepare('DELETE FROM coin WHERE name = :name');
         $stmt->bindValue(':name', $model->getName());
         $result = $stmt->execute();
 

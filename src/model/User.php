@@ -1,6 +1,6 @@
 <?php
 
-namespace Welbert\Carteira\model;
+namespace Src\model;
 
 final class User
 {

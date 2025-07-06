@@ -1,8 +1,8 @@
 <?php
 
-namespace Welbert\Carteira\exception;
+namespace Src\exception;
 
 use Exception;
 
-class CoinsAPIException extends Exception
+final class CoinsAPIException extends Exception
 {}

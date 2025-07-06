@@ -1,21 +1,22 @@
 <?php
 
-namespace Welbert\Carteira\dao;
+namespace Src\dao;
 
 use PDO;
-use Welbert\Carteira\model\CaseCrypto;
+use Src\model\CaseCrypto;
 
 final class CaseCryptoDAO extends DAO
 {
+    private PDO $dao;
 
     public function __construct()
     {
-        parent::__construct();
+        $this->dao = $this->getConnect();
     }
 
     public function createCase(CaseCrypto $model): ?CaseCrypto
     {
-        $stmt = parent::$connect->prepare('INSERT INTO casecrypto (user_id) values (:user_id)');
+        $stmt = $this->dao->prepare('INSERT INTO casecrypto (user_id) values (:user_id)');
         $stmt->bindValue(':user_id', $model->getUserId());
         $result = $stmt->execute();
 
@@ -23,13 +24,13 @@ final class CaseCryptoDAO extends DAO
             return null;
         }
 
-        $model->setId(parent::$connect->lastInsertId());
+        $model->setId($this->dao->lastInsertId());
         return $model;
     }
 
     public function getCaseByUserId(int $id): ?CaseCrypto
     {
-        $stmt = parent::$connect->prepare('SELECT * FROM casecrypto WHERE user_id = :user_id');
+        $stmt = $this->dao->prepare('SELECT * FROM casecrypto WHERE user_id = :user_id');
         $stmt->bindValue(':user_id', $id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

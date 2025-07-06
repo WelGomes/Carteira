@@ -1,16 +1,14 @@
 <?php
 
-namespace Welbert\Carteira\service;
+namespace Src\service;
 
-use Welbert\Carteira\exception\CoinsAPIException;
-use Welbert\Carteira\model\CoinsAPI;
+use Src\exception\CoinsAPIException;
+use Src\model\CoinsAPI;
 
 final class APIService
 {
-
     public static function listCoin(): array
     {
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [

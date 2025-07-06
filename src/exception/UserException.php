@@ -1,10 +1,8 @@
 <?php
 
-namespace  Welbert\Carteira\exception;
+namespace Src\exception;
 
 use Exception;
 
-class UserException extends Exception
-{
-    
-}
+final class UserException extends Exception
+{}

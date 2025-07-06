@@ -1,10 +1,8 @@
 <?php
 
-namespace Welbert\Carteira\exception;
+namespace Src\exception;
 
 use Exception;
 
-class CaseCryptoException extends Exception
-{
-    
-}
+final class CaseCryptoException extends Exception
+{}
