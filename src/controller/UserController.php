@@ -1,15 +1,15 @@
 <?php
 
-namespace Src\controller;
+namespace src\controller;
 
-use Src\exception\CaseCryptoException;
-use Src\exception\CoinsAPIException;
-use Src\exception\UserException;
-use Src\model\CaseCrypto;
-use Src\model\User;
-use Src\service\APIService;
-use Src\service\CaseCryptoService;
-use Src\service\UserService;
+use src\exception\CaseCryptoException;
+use src\exception\CoinsAPIException;
+use src\exception\UserException;
+use src\model\CaseCrypto;
+use src\model\User;
+use src\service\APIService;
+use src\service\CaseCryptoService;
+use src\service\UserService;
 
 final class UserController
 {
@@ -22,11 +22,12 @@ final class UserController
     }
 
     public function home(): void
-    {   
+    {
+        if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
+            header('Location: /');
+        }
+
         try {
-            if (!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
-                header('Location: /');
-            }
 
             $API = new APIService();
             $coin = $API->listCoin();

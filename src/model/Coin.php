@@ -1,10 +1,9 @@
 <?php
 
-namespace Src\model;
+namespace src\model;
 
 final class Coin 
 {
-
     private int $id;
     private string $symbol;
     private string $name;

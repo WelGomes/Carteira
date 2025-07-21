@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\controller;
+namespace src\controller;
 
-use Src\exception\CaseCryptoException;
-use Src\exception\CoinException;
-use Src\model\Coin;
-use Src\service\CaseCryptoService;
-use Src\service\CoinService;
+use src\exception\CaseCryptoException;
+use src\exception\CoinException;
+use src\model\Coin;
+use src\service\CaseCryptoService;
+use src\service\CoinService;
 
 final class CoinController
 {
@@ -53,6 +53,9 @@ final class CoinController
 
     public function list(): void
     {   
+        if(!isset($_SESSION['user_log']) || !$_SESSION['user_log']) {
+            header('Location: /');
+        }
         try {
             $caseService = new CaseCryptoService();
             $caseId = $caseService->getCaseByUserId($_SESSION['id']);

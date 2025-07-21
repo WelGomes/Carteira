@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\service;
+namespace src\service;
 
-use Src\exception\CoinsAPIException;
-use Src\model\CoinsAPI;
+use src\exception\CoinsAPIException;
+use src\model\CoinsAPI;
 
 final class APIService
 {

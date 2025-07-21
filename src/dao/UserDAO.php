@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\dao;
+namespace src\dao;
 
 use PDO;
-use Src\model\User;
+use src\model\User;
 
 final class UserDAO extends DAO
 {

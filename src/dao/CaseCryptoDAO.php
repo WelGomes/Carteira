@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\dao;
+namespace src\dao;
 
 use PDO;
-use Src\model\CaseCrypto;
+use src\model\CaseCrypto;
 
 final class CaseCryptoDAO extends DAO
 {

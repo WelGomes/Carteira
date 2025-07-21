@@ -1,11 +1,9 @@
 <?php
 
-namespace Src\model;
-
+namespace src\model;
 
 final class CoinsAPI
 {
-
     private string $name;
     private string $symbol;
     private string $image;

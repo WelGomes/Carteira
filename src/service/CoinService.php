@@ -1,11 +1,10 @@
 <?php
 
-namespace Src\service;
+namespace src\service;
 
-use Src\dao\CoinDAO;
-use Src\dao\DAO;
-use Src\exception\CoinException;
-use Src\model\Coin;
+use src\dao\CoinDAO;
+use src\exception\CoinException;
+use src\model\Coin;
 
 final class CoinService
 {

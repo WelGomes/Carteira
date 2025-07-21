@@ -2,8 +2,9 @@
     "name": "welbert/carteira",
     "autoload": {
         "psr-4": {
-            "Src\\": "src/",
-            "Tests\\": "tests/"
+            "src\\": "src/",
+            "config\\": "config/",
+            "public\\": "public/"
         }
     },
     "authors": [
@@ -12,7 +13,5 @@
             "email": "welbert.gomes12@gmail.com"
         }
     ],
-    "require-dev": {
-        "phpunit/phpunit": "^12"
-    }
+    "require": {}
 }

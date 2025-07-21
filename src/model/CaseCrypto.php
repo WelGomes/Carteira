@@ -1,10 +1,9 @@
 <?php
 
-namespace Src\model;
+namespace src\model;
 
 final class CaseCrypto
 {
-
     private int $id;
     private int $userId;
 

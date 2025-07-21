@@ -1,10 +1,9 @@
 <?php
 
-namespace Src\model;
+namespace src\model;
 
 final class User
 {
-
     private ?int $id;
     private ?string $name;
     private ?string $lastName;

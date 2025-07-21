@@ -1,11 +1,10 @@
 <?php
 
-namespace Src\service;
+namespace src\service;
 
-use Src\dao\DAO;
-use Src\dao\UserDAO;
-use Src\exception\UserException;
-use Src\model\User;
+use src\dao\UserDAO;
+use src\exception\UserException;
+use src\model\User;
 
 final class UserService
 {

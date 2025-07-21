@@ -1,11 +1,10 @@
 <?php
 
-namespace Src\service;
+namespace src\service;
 
-use Src\dao\CaseCryptoDAO;
-use Src\dao\DAO;
-use Src\exception\CaseCryptoException;
-use Src\model\CaseCrypto;
+use src\dao\CaseCryptoDAO;
+use src\exception\CaseCryptoException;
+use src\model\CaseCrypto;
 
 final class CaseCryptoService 
 {

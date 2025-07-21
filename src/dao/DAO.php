@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\dao;
+namespace src\dao;
 
 use PDO;
 use PDOException;
